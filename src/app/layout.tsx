@@ -4,6 +4,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
 import { cn } from "~/lib/utils";
+import { Header } from "~/components/layouts/header";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -33,6 +34,7 @@ export default function RootLayout({
           'bg-zinc-100'
         )}
       >
+        <Header />
         {children}
       </body>
     </html>
