@@ -12,7 +12,7 @@ export default function HomePage() {
       />
 
       <div>
-        <h1 className="text-5xl font-semibold my-6 max-w-[500px]">
+        <h1 className="text-5xl font-font-test text-balance font-semibold my-6 max-w-[500px]">
           Track your <span className="font-extrabold">expenses</span> with ease
         </h1>
 
