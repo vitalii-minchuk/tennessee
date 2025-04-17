@@ -12,7 +12,7 @@ export async function POST(req: Request) {
 
     const redirectUrl = new URL(
       `/account?order_id=${orderId}&status=${status}`,
-      req.url
+      "https://tennessee-omega.vercel.app"
     );
     return NextResponse.redirect(redirectUrl, 303);
   } catch (error) {
