@@ -1,14 +1,13 @@
-import { NextApiRequest, NextApiResponse } from "next";
+import { NextRequest, NextResponse } from "next/server";
 
-export async function POST(req: NextApiRequest, res: NextApiResponse) {
-  if (req.method === "POST") {
-    const { order_status, order_id } = req.body;
+export async function POST(req: NextRequest) {
+  const body = await req.formData();
 
-    return res.redirect(
-      307,
-      `/account?order_id=${order_id}&status=${order_status}`
-    );
-  }
+  const orderStatus = body.get("order_status");
+  const orderId = body.get("order_id");
 
-  res.status(405).end();
+  return NextResponse.redirect(
+    new URL(`/account?order_id=${orderId}&status=${orderStatus}`, req.url),
+    307
+  );
 }
