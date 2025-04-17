@@ -1,17 +1,9 @@
 import { NextResponse } from "next/server";
 
-export async function POST(req: Request) {
-  console.log("Received a POST request:", req.url);
-
+export async function POST() {
   try {
-    const data = await req.json();
-    console.log("Parsed data:", data);
-
-    const orderId = data.order_id;
-    const status = data.order_status;
-
     const redirectUrl = new URL(
-      `/account?order_id=${orderId}&status=${status}`,
+      `/account`,
       "https://tennessee-omega.vercel.app"
     );
     return NextResponse.redirect(redirectUrl, 303);
