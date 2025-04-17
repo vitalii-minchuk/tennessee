@@ -1,13 +1,24 @@
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
-  const body = await req.formData();
+  console.log("Received a POST request:", req.url);
 
-  const orderStatus = body.get("order_status");
-  const orderId = body.get("order_id");
+  try {
+    const data = await req.json();
+    console.log("Parsed data:", data);
 
-  return NextResponse.redirect(
-    new URL(`/account?order_id=${orderId}&status=${orderStatus}`, req.url),
-    307
-  );
+    const orderId = data.order_id;
+    const status = data.order_status;
+
+    return NextResponse.redirect(
+      new URL(`/account?order_id=${orderId}&status=${status}`, req.url),
+      303
+    );
+  } catch (error) {
+    console.error("Error parsing request:", error);
+    return NextResponse.json(
+      { error: "Unable to process the request." },
+      { status: 400 }
+    );
+  }
 }
