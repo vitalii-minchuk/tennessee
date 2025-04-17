@@ -1,6 +1,6 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 
-export async function POST(req: NextRequest) {
+export async function POST(req: Request) {
   console.log("Received a POST request:", req.url);
 
   try {
@@ -10,10 +10,11 @@ export async function POST(req: NextRequest) {
     const orderId = data.order_id;
     const status = data.order_status;
 
-    return NextResponse.redirect(
-      new URL(`/account?order_id=${orderId}&status=${status}`, req.url),
-      303
+    const redirectUrl = new URL(
+      `/account?order_id=${orderId}&status=${status}`,
+      req.url
     );
+    return NextResponse.redirect(redirectUrl, 303);
   } catch (error) {
     console.error("Error parsing request:", error);
     return NextResponse.json(
