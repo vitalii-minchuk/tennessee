@@ -13,18 +13,17 @@ export async function POST(req: Request) {
       const sortedKeys = Array.from(params.keys())
         .sort()
         .filter((el) => {
-          console.log("el", el);
           return (
             el !== "" &&
             el !== "response_signature_string" &&
-            el !== "signature" &&
-            el !== "additional_info"
+            el !== "signature"
           );
         });
 
       console.log("sortedKeys", sortedKeys);
       const concatenatedValues = sortedKeys
         .map((key) => params.get(key))
+        .filter((val) => val !== null && val !== "")
         .join("|");
       console.log("concatenatedValues", concatenatedValues);
       // Create the signature string, starting with the password
