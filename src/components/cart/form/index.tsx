@@ -15,7 +15,7 @@ export const Form = ({products}: Props) => {
     const fetchSettlements = async (search: string) => {
         if (!search) return
 
-        const res = await fetch('api/nova-post?search=' + search)
+        const res = await fetch('/api/nova-post?search=' + encodeURIComponent(search))
         return await res.json()
     }
     const handleChange: ChangeEventHandler<HTMLInputElement> = (e) => {

@@ -8,7 +8,7 @@ export async function GET(req: NextRequest) {
     const search = params?.search;
 
     const data = await fetch(
-      `${process.env.PUBLIC_NEXT_SERVER_BASE_URL}/nava-post/settlements?search=${search}`
+      `${process.env.PUBLIC_NEXT_SERVER_BASE_URL}/nova-post/settlements?search=${search}`
     );
     return NextResponse.json(
       {
