@@ -7,9 +7,11 @@ export async function GET(req: NextRequest) {
 
     const search = params?.search;
 
-    const data = await fetch(
+    const result = await fetch(
       `${process.env.PUBLIC_NEXT_SERVER_BASE_URL}/nova-post/settlements?search=${search}`
     );
+
+    const data = await result.json();
     return NextResponse.json(
       {
         success: true,

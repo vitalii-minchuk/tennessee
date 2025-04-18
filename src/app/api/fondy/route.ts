@@ -12,16 +12,20 @@ export async function POST(req: Request) {
     ): string => {
       const sortedKeys = Array.from(params.keys())
         .sort()
-        .filter(
-          (el) =>
+        .filter((el) => {
+          console.log("el", el);
+          return (
             el !== "" &&
             el !== "response_signature_string" &&
             el !== "signature"
-        );
+          );
+        });
+
+      console.log("sortedKeys", sortedKeys);
       const concatenatedValues = sortedKeys
         .map((key) => params.get(key))
         .join("|");
-
+      console.log("concatenatedValues", concatenatedValues);
       // Create the signature string, starting with the password
       const signatureString = `${password}|${concatenatedValues}`;
 
@@ -32,7 +36,7 @@ export async function POST(req: Request) {
     const signature = buildSignature(params, "test");
 
     // const responseSignatureString = params.get("response_signature_string");
-    console.log(signature, params);
+    console.log("", signature, params);
     const baseUrl =
       process.env.NEXT_PUBLIC_SITE_URL || "https://tennessee-omega.vercel.app";
     const redirectUrl = new URL(`/thank-you`, baseUrl);
