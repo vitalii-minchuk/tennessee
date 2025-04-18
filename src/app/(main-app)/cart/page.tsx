@@ -12,8 +12,12 @@ export default async function ThankYouPage() {
         console.error(error);
         return []
     }
-};
+}
+
+
   const products = await fetchProducts()
+
+
     return (
       <div className="bg-zinc-950 h-screen">
         <Form products={products}/>

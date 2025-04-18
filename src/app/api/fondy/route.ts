@@ -17,7 +17,8 @@ export async function POST(req: Request) {
           return (
             el !== "" &&
             el !== "response_signature_string" &&
-            el !== "signature"
+            el !== "signature" &&
+            el !== "additional_info"
           );
         });
 

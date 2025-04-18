@@ -18,8 +18,39 @@ export const Form = ({products}: Props) => {
         const res = await fetch('/api/nova-post?search=' + encodeURIComponent(search))
         return await res.json()
     }
+
+
+  const createPayment = async () => {
+    try {
+        const response = await fetch('/api/payments', {method: "POST", body: JSON.stringify({
+          "customer":{
+              "email": "user@example.com"
+          },
+          "totalPrice": 1200,
+          "orderItems": [
+            {
+              "productId": "68022759cb49a7a06637a3db",
+              "sizeId": "67f9163fc7c93cbd18402fd1",
+              "quantity": 1
+            }
+          ]
+        })})
+
+        return await response.json() ?? [];
+    } catch (error) {
+        // eslint-disable-next-line no-console
+        console.error(error);
+        return []
+    }
+};
     const handleChange: ChangeEventHandler<HTMLInputElement> = (e) => {
         setText(e.target.value)
+    }
+
+    const handlePayment = () => {
+        createPayment().then((res) => {
+            console.log(res)
+        })
     }
 
     const handleClick = () => {
@@ -32,6 +63,7 @@ export const Form = ({products}: Props) => {
     <div>
         <Input value={text} onChange={handleChange} />
         <Button onClick={handleClick}>send</Button>
+        <Button onClick={handlePayment}>create</Button>
     </div>
   )
 }
