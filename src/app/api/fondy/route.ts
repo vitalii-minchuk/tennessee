@@ -31,8 +31,8 @@ export async function POST(req: Request) {
 
     const signature = buildSignature(params, "test");
 
-    const responseSignatureString = params.get("response_signature_string");
-    console.log(signature, responseSignatureString);
+    // const responseSignatureString = params.get("response_signature_string");
+    console.log(signature, params);
     const baseUrl =
       process.env.NEXT_PUBLIC_SITE_URL || "https://tennessee-omega.vercel.app";
     const redirectUrl = new URL(`/thank-you`, baseUrl);
