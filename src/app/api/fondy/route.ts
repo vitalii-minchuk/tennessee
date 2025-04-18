@@ -2,16 +2,19 @@ import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
   try {
-    const data = await req.json();
-    console.log("Parsed data:", data);
+    const bodyText = await req.text();
+    const params = new URLSearchParams(bodyText);
 
-    const orderId = data?.order_id;
-    const status = data?.order_status;
+    const orderId = params.get("order_id");
+    const status = params.get("order_status");
 
+    const baseUrl =
+      process.env.NEXT_PUBLIC_SITE_URL || "https://tennessee-omega.vercel.app";
     const redirectUrl = new URL(
       `/account?order_id=${orderId}&status=${status}`,
-      "https://tennessee-omega.vercel.app"
+      baseUrl
     );
+
     return NextResponse.redirect(redirectUrl, 303);
   } catch (error) {
     console.error("Error parsing request:", error);
