@@ -1,42 +1,7 @@
 import { NextResponse } from "next/server";
-import crypto from "node:crypto";
 
-export async function POST(req: Request) {
+export async function POST() {
   try {
-    const bodyText = await req.text();
-    const params = new URLSearchParams(bodyText);
-
-    const buildSignature = (
-      params: URLSearchParams,
-      password: string
-    ): string => {
-      const sortedKeys = Array.from(params.keys())
-        .sort()
-        .filter((el) => {
-          return (
-            el !== "" &&
-            el !== "response_signature_string" &&
-            el !== "signature"
-          );
-        });
-
-      console.log("sortedKeys", sortedKeys);
-      const concatenatedValues = sortedKeys
-        .map((key) => params.get(key))
-        .filter((val) => val !== null && val !== "")
-        .join("|");
-      console.log("concatenatedValues", concatenatedValues);
-      // Create the signature string, starting with the password
-      const signatureString = `${password}|${concatenatedValues}`;
-
-      // Return the SHA1 hash of the concatenated string
-      return crypto.createHash("sha1").update(signatureString).digest("hex");
-    };
-
-    const signature = buildSignature(params, "test");
-
-    // const responseSignatureString = params.get("response_signature_string");
-    console.log("", signature, params);
     const baseUrl =
       process.env.NEXT_PUBLIC_SITE_URL || "https://tennessee-omega.vercel.app";
     const redirectUrl = new URL(`/thank-you`, baseUrl);
