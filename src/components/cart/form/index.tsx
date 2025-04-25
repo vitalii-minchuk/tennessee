@@ -56,9 +56,9 @@ export const Form = ({ products }: Props) => {
   };
 
   const handlePayment = () => {
-    createPayment().then((res) => {
-      console.log(res);
-    });
+    // createPayment().then((res) => {
+      console.log('+++');
+    // });
   };
 
   const handleClick = () => {
